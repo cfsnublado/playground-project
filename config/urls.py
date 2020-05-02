@@ -11,7 +11,6 @@ SECURITY_URL_PREFIX = SecurityConf.URL_PREFIX
 USER_URL_PREFIX = ProfileConf.URL_PREFIX
 
 urlpatterns = i18n_patterns(
-    path("", include("social_django.urls", namespace="social")),
     path("", include("core.urls", namespace="core")),
     path("", include("app.urls")),
     path("api/", include("app.api.urls", namespace="api")),
