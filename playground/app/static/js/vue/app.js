@@ -1,14 +1,6 @@
-Vue.component("ajax-delete", AjaxDelete)
-Vue.component("ajax-tag", AjaxTag)
-Vue.component("audio-player", AudioPlayer)
 Vue.component("alert-message", AlertMessage)
 Vue.component("dropdown", Dropdown)
 Vue.component("navbar-dropdown", NavbarDropdown)
-Vue.component("confirmation-modal", ConfirmationModal)
-Vue.component("tag", Tag)
-Vue.component("toggle-tag", ToggleTag)
-Vue.component("tagbox", Tagbox)
-Vue.component("markdown-editor", MarkdownEditor)
 
 Vue.use(ModalPlugin)
 

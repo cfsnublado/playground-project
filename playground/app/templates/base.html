@@ -250,6 +250,49 @@ var appSessionUrl = "{% url 'app:app_session' %}";
 <script src="{% static 'js/vue/directives/vue-scrollto.js' %}"></script>
 <script src="{% static 'js/vue/app.js' %}"></script>
 
+<script>
+const wsScheme = window.location.protocol == "https:" ? "wss" : "ws";
+const wsFooUrl = wsScheme + "://" + window.location.host  + "/ws/foo"
+
+var messages = document.getElementById("messages")
+var socket = new ReconnectingWebSocket(wsFooUrl)
+
+socket.onmessage = function(e) {
+  console.log(e.data)
+  var alertMsg = `
+    <div class="alert abs-alert alert-info">
+
+    <div class="alert-content">
+    The earth is going to explode today!
+    </div>
+
+    <a href=""
+    type="button" 
+    class="close"
+    >
+    <span aria-hidden="true">&times;</span>
+    </a>
+
+    </div>
+  `
+  document.getElementById("messages").innerHTML = alertMsg
+  console.log(alertMsg)
+}
+
+socket.onopen = function(e) {
+  console.log("open")
+}
+
+socket.onerror = function(e) {
+  console.log("error")
+}
+
+socket.onclose = function(e) {
+  console.log("close")
+}
+
+</script>
+
 {% endblock scripts %}
 
 </body>
