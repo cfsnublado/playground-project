@@ -113,7 +113,6 @@ const VisibleMixin = {
   }
 }
 
-
 const BaseMessage = {
   props: {
     messageType: {

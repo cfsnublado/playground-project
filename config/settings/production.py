@@ -7,19 +7,19 @@ PROJECT_DOMAIN = "https://cfsnublado.herokuapp.com"
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
     }
 }
 
 # Parse database configuration from $DATABASE_URL
-DATABASES['default'] = dj_database_url.config()
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DATABASES["default"] = dj_database_url.config()
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 USERS_USE_GRAVATAR = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

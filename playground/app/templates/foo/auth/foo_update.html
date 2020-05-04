@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Update Foo{% endblock title %}
+
+{% block content %}
+
+<form 
+id="edit-form" 
+action="{% url 'foo:foo_update' foo.id %}" 
+method="post" 
+novalidate
+>
+
+{% csrf_token %}
+
+{% include "foo/includes/forms/_foo_form.html" %}
+
+<div class="form-buttons">
+
+<button id="submit-btn" class="button is-info" type="submit" form="edit-form">
+{% trans "label_update" %}
+</button>
+
+</div>
+
+</form>
+
+{% endblock content %}
