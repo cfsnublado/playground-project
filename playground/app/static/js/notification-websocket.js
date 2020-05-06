@@ -4,25 +4,25 @@ const wsFooUrl = wsScheme + "://" + window.location.host  + "/ws/foo"
 var messages = document.getElementById("messages")
 var notificationSocket = new ReconnectingWebSocket(wsFooUrl)
 
+function createUUID() {
+   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+   });
+}
+
 notificationSocket.onmessage = function(e) {
   console.log(e.data)
-  var alertMsg = `
-    <div class="alert abs-alert alert-info">
 
-    <div class="alert-content">
-    The earth is going to explode today!
-    </div>
+  let notification = {
+    "id": createUUID(),
+    "type": "alert-success",
+    "message": "Holy shit! It may have worked!",
+    "timeout": true,
+    "delay": 5000
+  }
 
-    <a href=""
-    type="button" 
-    class="close"
-    >
-    <span aria-hidden="true">&times;</span>
-    </a>
-
-    </div>
-  `
-  document.getElementById("messages").innerHTML = alertMsg
+  NotificationStore.addNotification(notification)
 }
 
 notificationSocket.onopen = function(e) {

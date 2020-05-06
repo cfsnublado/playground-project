@@ -11769,20 +11769,27 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   width: 100%;
 }
 /* line 36, ../../prototype/scss/cfs/_alert.scss */
+.alert.fixed-alert {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  width: 100%;
+}
+/* line 44, ../../prototype/scss/cfs/_alert.scss */
 .alert > p,
 .alert > ul {
   margin-bottom: 0;
 }
-/* line 41, ../../prototype/scss/cfs/_alert.scss */
+/* line 49, ../../prototype/scss/cfs/_alert.scss */
 .alert > p + p {
   margin-top: 5px;
 }
-/* line 45, ../../prototype/scss/cfs/_alert.scss */
+/* line 53, ../../prototype/scss/cfs/_alert.scss */
 .alert .alert-content {
   -webkit-order: 1;
   order: 1;
 }
-/* line 49, ../../prototype/scss/cfs/_alert.scss */
+/* line 57, ../../prototype/scss/cfs/_alert.scss */
 .alert .close {
   -webkit-order: 2;
   order: 2;
@@ -11794,7 +11801,7 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   color: #000;
   text-shadow: 0 1px 0 #fff;
 }
-/* line 62, ../../prototype/scss/cfs/_alert.scss */
+/* line 70, ../../prototype/scss/cfs/_alert.scss */
 .alert .close:hover, .alert .close:focus {
   cursor: pointer;
   text-decoration: none;
@@ -11802,23 +11809,23 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   color: #000;
 }
 
-/* line 73, ../../prototype/scss/cfs/_alert.scss */
+/* line 81, ../../prototype/scss/cfs/_alert.scss */
 .alert.small {
   font-size: 0.875rem;
   padding: 0.625rem;
 }
 
-/* line 79, ../../prototype/scss/cfs/_alert.scss */
+/* line 87, ../../prototype/scss/cfs/_alert.scss */
 .alert-heading {
   color: inherit;
 }
 
-/* line 83, ../../prototype/scss/cfs/_alert.scss */
+/* line 91, ../../prototype/scss/cfs/_alert.scss */
 .alert-link {
   font-weight: bold;
 }
 
-/* line 87, ../../prototype/scss/cfs/_alert.scss */
+/* line 95, ../../prototype/scss/cfs/_alert.scss */
 .alert-danger {
   color: #a94442;
   border-color: #ebcccc;
@@ -11833,7 +11840,7 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   color: #843534;
 }
 
-/* line 91, ../../prototype/scss/cfs/_alert.scss */
+/* line 99, ../../prototype/scss/cfs/_alert.scss */
 .alert-info {
   color: #31708f;
   border-color: #bcdff1;
@@ -11848,7 +11855,7 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   color: #245269;
 }
 
-/* line 95, ../../prototype/scss/cfs/_alert.scss */
+/* line 103, ../../prototype/scss/cfs/_alert.scss */
 .alert-success {
   color: #3c763d;
   border-color: #d0e9c6;
@@ -11863,7 +11870,7 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
   color: #2b542c;
 }
 
-/* line 99, ../../prototype/scss/cfs/_alert.scss */
+/* line 107, ../../prototype/scss/cfs/_alert.scss */
 .alert-warning {
   color: #8a6d3b;
   border-color: #faf2cc;
@@ -11946,4 +11953,26 @@ body.sidebar-adaptable.sidebar-expanded .page-footer.is-fixed {
 .fade-transition-slow-enter-active,
 .fade-transition-slow-leave-active {
   transition: opacity 1.0s ease;
+}
+
+/* line 22, ../../prototype/scss/cfs/vue/_vue.scss */
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+
+/* line 25, ../../prototype/scss/cfs/vue/_vue.scss */
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

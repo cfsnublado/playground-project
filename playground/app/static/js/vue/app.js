@@ -1,6 +1,7 @@
 Vue.component("alert-message", AlertMessage)
 Vue.component("dropdown", Dropdown)
 Vue.component("navbar-dropdown", NavbarDropdown)
+Vue.component("notifications", Notifications)
 
 Vue.use(ModalPlugin)
 

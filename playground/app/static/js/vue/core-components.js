@@ -27,15 +27,15 @@ const AjaxProcessMixin = {
   methods: {
     process() {
       this.processing = true
-      this.$emit('ajax-process')
+      this.$emit("ajax-process")
     },
     complete() {
       this.processing = false
-      this.$emit('ajax-complete')
+      this.$emit("ajax-complete")
     },
     success() {
       this.processing = false
-      this.$emit('ajax-success')
+      this.$emit("ajax-success")
     }
   }
 }
@@ -43,7 +43,7 @@ const AjaxProcessMixin = {
 const ClickOutsideMixin = {
   methods: {
     onClickOutside() {
-      console.log('clicked outside')
+      console.log("clicked outside")
     },
     clickOutside(event) {
       if (!this.$el.contains(event.target)) {
@@ -51,10 +51,10 @@ const ClickOutsideMixin = {
       }
     },
     addClickOutsideHandler() {
-      window.addEventListener('click', this.clickOutside)
+      window.addEventListener("click", this.clickOutside)
     },
     removeClickOutsideHandler() {
-      window.removeEventListener('click', this.clickOutside)
+      window.removeEventListener("click", this.clickOutside)
     }
   },
   created() {
@@ -117,35 +117,37 @@ const BaseMessage = {
   props: {
     messageType: {
       type: String,
-      default: 'success'
+      default: "success"
     },
     messageText: {
       type: String,
-      default: ''
+      default: ""
     },
-    initAutoClose: {
+    timeout: {
       type: Boolean,
       default: true
+    },
+    delay: {
+      type: Number,
+      default: 3000
     }
   },
   data() {
     return {
       isOpen: true,
-      timerId: null,
-      timerDelay: 3000,
-      autoClose: this.initAutoClose
+      timer: null,
     }
   },
   methods: {
     close() {
-      clearTimeout(this.timerId)
+      clearTimeout(this.timer)
       this.isOpen = false
     },
     load() {
-      if (this.autoClose) {
-        this.timerId = setTimeout(()=>{
+      if (this.timeout) {
+        this.timer = setTimeout(()=>{
           this.close()
-        }, this.timerDelay) 
+        }, this.delay) 
       }
     }
   },
@@ -158,7 +160,7 @@ const BaseModal = {
   props: {
     initId: {
       type: String,
-      default: 'modal'
+      default: "modal"
     }
   },
   data() {
@@ -187,7 +189,7 @@ const BaseDropdown = {
     },
     dropdownClasses: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data() {
@@ -197,7 +199,7 @@ const BaseDropdown = {
   },
   methods: {
     toggle(manual) {
-      this.$emit('toggle')
+      this.$emit("toggle")
       if (manual === true || manual === false) {
         this.isOpen = manual
       } else {
@@ -219,11 +221,11 @@ const BaseSearch = {
   props: {
     id: {
       type: String,
-      default: 'search'
+      default: "search"
     },
     initSearchTerm: {
       type: String,
-      default: ''
+      default: ""
     },
     initAutocompleteUrl: {
       type: String,
@@ -231,7 +233,7 @@ const BaseSearch = {
     },
     initSearchUrl: {
       type: String,
-      default: ''
+      default: ""
     },
     searchOnSelect: {
       type: Boolean,
@@ -242,7 +244,7 @@ const BaseSearch = {
     return {
       searchTerm: this.initSearchTerm,
       searchParams: {
-        term: ''
+        term: ""
       },
       results: [],
       isOpen: false,
@@ -259,7 +261,7 @@ const BaseSearch = {
       this.isOpen = false
     },
     search() {
-      console.log('search')
+      console.log("search")
     },
     success(response) {
       if (response.data.length) {
@@ -300,11 +302,11 @@ const BaseSearch = {
       }, this.searchDelay)
     },
     onFocus() {
-      this.$emit('search-focus')
+      this.$emit("search-focus")
     },
     onClickOutside() {
       this.isOpen = false
-      // this.searchTerm = ''
+      // this.searchTerm = ""
     },   
   }
 }
@@ -314,29 +316,29 @@ const BaseLanguageSearch = {
   props: {
     initLanguage: {
       type: String,
-      default: 'en'
+      default: "en"
     }
   },
   data() {
     return {
       language: this.initLanguage,
-      languageUrl: ''
+      languageUrl: ""
     }
   },
   methods: {
     setLanguage(lang) {
       this.language = lang
-      this.autocompleteUrl = this.languageUrl.replace('zz', this.language)
+      this.autocompleteUrl = this.languageUrl.replace("zz", this.language)
       this.onAutocomplete()
     },
     search() {
-      url = this.searchUrl + '?search_term=' + this.searchTerm + '&search_language=' + this.language
+      url = this.searchUrl + "?search_term=" + this.searchTerm + "&search_language=" + this.language
       window.location.assign(url);
     }
   },
   created() {
     this.languageUrl = this.autocompleteUrl
-    this.autocompleteUrl = this.languageUrl.replace('zz', this.language)
+    this.autocompleteUrl = this.languageUrl.replace("zz", this.language)
   },
 }
 
@@ -347,7 +349,7 @@ const BaseTag = {
   props: {
     id: {
       type: String,
-      default: ''
+      default: ""
     },
     value: {
       type: String,
@@ -359,7 +361,7 @@ const BaseTag = {
     },
     selectRedirectUrl: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   methods: {
@@ -368,10 +370,10 @@ const BaseTag = {
         window.location.assign(this.selectRedirectUrl)
       }
 
-      this.$emit('select-tag', this.id)
+      this.$emit("select-tag", this.id)
     },
     remove() {
-      this.$emit('remove-tag', this.id)
+      this.$emit("remove-tag", this.id)
     }
   },
   template: `
@@ -406,7 +408,7 @@ const BaseToggleTag = {
   },
   methods: {
     toggle() {
-      this.$emit('toggle-tag', this.id)
+      this.$emit("toggle-tag", this.id)
     },
   },
   template: `
@@ -424,7 +426,7 @@ const BaseToggleTag = {
       <a 
       @click.prevent="toggle"
       >
-      &nbsp; <i v-bind:class="[toggleSelect ? 'fa-check-square' : 'fa-square', 'fas']"></i>
+      &nbsp; <i v-bind:class="[toggleSelect ? "fa-check-square" : "fa-square", "fas"]"></i>
       </a>
 
     </div>
@@ -445,16 +447,16 @@ const BaseTagbox = {
   },
   methods: {
     addTag(tag) {
-      this.$emit('add-tag', tag)
+      this.$emit("add-tag", tag)
     },
     removeTag(index) {
-      this.$emit('remove-tag', index)
+      this.$emit("remove-tag", index)
     },
     selectTag(index) {
-      this.$emit('select-tag', index)
+      this.$emit("select-tag", index)
     },
     focusTagInput() {
-      this.$emit('focus-tag-input')
+      this.$emit("focus-tag-input")
     }
   }
 }
