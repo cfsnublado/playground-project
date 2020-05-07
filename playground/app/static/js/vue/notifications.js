@@ -145,12 +145,15 @@ const QueuedNotifications = {
   methods: {
     removeNotification(index) {
       this.$delete(this.notifications, index)
-      if (this.notifications.length == 0 && !this.queue.isEmpty()) {
-        let notification = this.queue.dequeue()
-        this.notifications.push(notification)
-      }
+  
+      let timer = setTimeout(()=>{
+        if (this.notifications.length == 0 && !this.queue.isEmpty()) {
+          let notification = this.queue.dequeue()
+          this.notifications.push(notification)       
+        }
+      }, 1000) 
       console.log("notifications length: " + this.notifications.length)
-      console.log("queue length: " + this.queue.length())
+      console.log("queue length: " + this.queue.length())  
     }
   },
   template: `

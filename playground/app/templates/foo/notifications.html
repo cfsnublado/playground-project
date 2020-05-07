@@ -37,7 +37,7 @@ infoBtn.addEventListener("click", function(e){
     "timeout": true,
     "delay": delay
   }
-  NotificationStore.addNotification(notification, false)
+  QueuedNotificationStore.addNotification(notification)
 })
 
 successBtn.addEventListener("click", function(e){
@@ -50,7 +50,7 @@ successBtn.addEventListener("click", function(e){
     "timeout": true,
     "delay": delay
   }
-  NotificationStore.addNotification(notification, false)
+  QueuedNotificationStore.addNotification(notification)
 })
 
 errorBtn.addEventListener("click", function(e){
@@ -63,7 +63,7 @@ errorBtn.addEventListener("click", function(e){
     "timeout": true,
     "delay": delay
   }
-  NotificationStore.addNotification(notification, false)
+  QueuedNotificationStore.addNotification(notification)
 })
 
 </script>
