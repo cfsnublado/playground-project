@@ -4,25 +4,18 @@ const wsFooUrl = wsScheme + "://" + window.location.host  + "/ws/foo"
 var messages = document.getElementById("messages")
 var notificationSocket = new ReconnectingWebSocket(wsFooUrl)
 
-function createUUID() {
-   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-   });
-}
 
 notificationSocket.onmessage = function(e) {
-  console.log(e.data)
-
+  var data = JSON.parse(e.data)
   let notification = {
     "id": createUUID(),
-    "type": "alert-success",
-    "message": "Holy shit! It may have worked!",
+    "type": "alert-info",
+    "message": "A new post has been created: " + data.foo.name + ".",
     "timeout": true,
     "delay": 5000
   }
 
-  NotificationStore.addNotification(notification)
+  QueuedNotificationStore.addNotification(notification)
 }
 
 notificationSocket.onopen = function(e) {

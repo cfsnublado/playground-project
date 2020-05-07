@@ -1,14 +1,38 @@
 const NotificationStore = {
   /**
   This is used throughout the app to directly store notifications.
-  It is used in Notifications. Later on, make a plugin or something. This 
+  Later on, make a plugin or something. This 
   seems a bit hack.
   **/
 
-  state: [],
+  notifications: [],
+
+  addNotification: function (notification, insertAtEnd=true) {
+    if (insertAtEnd) {
+      this.notifications.push(notification)
+    } else {
+      this.notifications.unshift(notification)
+    }
+  },
+}
+
+const QueuedNotificationStore = {
+
+  notifications: [],
+  queue: new Queue(),
 
   addNotification: function (notification) {
-    this.state.push(notification)
+
+    if (this.notifications.length > 0) {
+      this.queue.enqueue(notification)
+    } else {
+      if (!this.queue.isEmpty()) {
+        let queuedNotification = this.queue.dequeue()
+        this.notifications.unshift(queuedNotification)
+      } else {
+        this.notifications.unshift(notification)
+      }
+    }
   },
 }
 
@@ -56,7 +80,7 @@ const Notification = {
     this.load()
   },
   template: `
-    <transition name="fade-transition-slow">
+    <transition name="bounce">
 
     <div :class="[type, 'alert']">
 
@@ -84,13 +108,49 @@ const Notifications = {
   },
   data () {
     return {
-      notifications: NotificationStore.state
+      notifications: NotificationStore.notifications
     }
   },
   methods: {
-    removeNotification: function (index) {
+    removeNotification(index) {
       this.$delete(this.notifications, index)
-      console.log("notification queue length: " + this.notifications.length)
+      console.log("notifications length: " + this.notifications.length)
+    }
+  },
+  template: `
+    <div>
+
+    <notification
+    v-for="(notification, index) in notifications"
+    :notification="notification"
+    :key="notification.id"
+    @remove-notification="removeNotification(index)"
+    >
+    </notification>
+
+    </div>
+  `
+}
+
+const QueuedNotifications = {
+  components: {
+    "notification": Notification
+  },
+  data () {
+    return {
+      notifications: QueuedNotificationStore.notifications,
+      queue: QueuedNotificationStore.queue
+    }
+  },
+  methods: {
+    removeNotification(index) {
+      this.$delete(this.notifications, index)
+      if (this.notifications.length == 0 && !this.queue.isEmpty()) {
+        let notification = this.queue.dequeue()
+        this.notifications.push(notification)
+      }
+      console.log("notifications length: " + this.notifications.length)
+      console.log("queue length: " + this.queue.length())
     }
   },
   template: `

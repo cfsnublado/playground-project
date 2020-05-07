@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Notifications{% endblock title %}
+
+{% block content %}
+
+<div class="buttons" style="margin-top: 300px;">
+<a id="info-btn" class="button">Info</a>
+<a id="success-btn" class="button">Success</a>
+<a id="error-btn" class="button">Error</a>
+</div>
+
+{% endblock content %}
+
+{% block page_footer %}
+{% endblock page_footer %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script>
+
+var infoBtn = document.getElementById("info-btn")
+var successBtn = document.getElementById("success-btn")
+var errorBtn = document.getElementById("error-btn")
+const delay = 3000
+
+infoBtn.addEventListener("click", function(e){
+  e.preventDefault()
+
+  let notification = {
+    "id": createUUID(),
+    "type": "alert-info",
+    "message": "This is an info notification.",
+    "timeout": true,
+    "delay": delay
+  }
+  NotificationStore.addNotification(notification, false)
+})
+
+successBtn.addEventListener("click", function(e){
+  e.preventDefault()
+
+  let notification = {
+    "id": createUUID(),
+    "type": "alert-success",
+    "message": "This is a success notification.",
+    "timeout": true,
+    "delay": delay
+  }
+  NotificationStore.addNotification(notification, false)
+})
+
+errorBtn.addEventListener("click", function(e){
+  e.preventDefault()
+
+  let notification = {
+    "id": createUUID(),
+    "type": "alert-danger",
+    "message": "This is an error notification.",
+    "timeout": true,
+    "delay": delay
+  }
+  NotificationStore.addNotification(notification, false)
+})
+
+</script>
+{% endblock scripts %}

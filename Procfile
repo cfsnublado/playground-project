@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi --workers $WEB_CONCURRENCY --pythonpath $PYTHONPATH --log-file -
+web: daphne config.asgi:application --port $PORT --bind 0.0.0.0

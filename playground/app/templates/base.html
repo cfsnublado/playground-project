@@ -205,7 +205,7 @@ dropdown-classes="is-up"
 {% block notifications %}
 
 <div id="notifications" class="notifications">
-{% include "includes/_notifications.html" %}
+{% include "includes/_queued_notifications.html" %}
 </div>
 
 {% endblock notifications %}
@@ -259,7 +259,7 @@ var appSessionUrl = "{% url 'app:app_session' %}";
 </script>
 
 {% block scripts %}
-
+<script src="{% static 'js/utils.js' %}"></script>
 <script src="{% static 'js/showdown.min.js' %}"></script>
 <script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
 <script src="{% static 'js/axios.min.js' %}"></script>
