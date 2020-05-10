@@ -323,6 +323,25 @@ class UUIDModel(models.Model):
         abstract = True
 
 
+class PublishModel(models.Model):
+
+    STATUS_PUBLISHED = 2
+    STATUS_DRAFT = 1
+    PUBLISH_CHOICES = (
+        (STATUS_PUBLISHED, _("label_status_published")),
+        (STATUS_DRAFT, _("label_status_draft"))
+    )
+
+    publish_status = models.IntegerField(
+        verbose_name=_("label_publish_status"),
+        choices=PUBLISH_CHOICES,
+        default=STATUS_DRAFT
+    )
+
+    class Meta:
+        abstract = True
+
+
 # Project-related models
 
 class ProjectContentModel(models.Model):

@@ -6,7 +6,7 @@ class FooForm(BaseModelForm):
 
     class Meta:
         abstract = True
-        fields = ["name", "description"]
+        fields = ["publish_status", "name", "description"]
 
 
 class FooCreateForm(FooForm):

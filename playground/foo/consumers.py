@@ -28,7 +28,6 @@ class FooConsumer(AsyncJsonWebsocketConsumer):
         await self.accept()
 
     async def foo_updated(self, event):
-
         await self.send_json(
             {
                 "msg_type": "foo_updated",

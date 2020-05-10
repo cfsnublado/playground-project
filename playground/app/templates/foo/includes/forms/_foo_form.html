@@ -7,6 +7,22 @@
 
 <div class="field">
 
+<label class="label" for="publish_status">
+{{ form.publish_status.label }}
+</label>
+
+<div class="control select">
+{% render_field form.publish_status class+="select" %}
+</div>
+
+<div id="{{ form.publish_status.auto_id }}-errors" class="errors">
+{{ form.publish_status.errors }}
+</div>
+
+</div>
+
+<div class="field">
+
 <label class="label" for="name">
 {{ form.name.label }}
 </label>
