@@ -10,7 +10,7 @@ publishNotificationWS.onmessage = function(e) {
   let notification = {
     "id": createUUID(),
     "type": "alert-info",
-    "message": "A post has been published: " + data.foo.name + ".",
+    "message": data.notification + ": " + data.foo.name + ".",
     "timeout": true,
     "delay": 5000
   }

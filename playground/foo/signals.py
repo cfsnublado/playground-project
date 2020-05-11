@@ -3,6 +3,7 @@ from channels.layers import get_channel_layer
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext as _
 
 from .models import Foo
 from .serializers import FooSerializer
@@ -22,6 +23,7 @@ def foo_published_notification(
                 "notify",
                 {
                     "type": "foo.published",
+                    "notification": _("msg_publish_notification"),
                     "foo_data": foo_serializer.data
                 }
             )
