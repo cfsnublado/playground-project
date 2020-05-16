@@ -201,6 +201,19 @@ class OrderedModelTest(TestCase):
         self.foo_c.delete()
         TestOrderedModel.objects.close_gap(self.foo_c)
 
+    def test_close_gap_without_delete(self):
+        """ Orders are unchanged if element still exists in db"""
+        TestOrderedModel.objects.close_gap(self.foo_b)
+        self.foo_a.refresh_from_db()
+        self.foo_b.refresh_from_db()
+        self.foo_c.refresh_from_db()
+        self.foo_d.refresh_from_db()
+
+        self.assertEqual(self.foo_a.order, 1)
+        self.assertEqual(self.foo_b.order, 2)
+        self.assertEqual(self.foo_c.order, 3)
+        self.assertEqual(self.foo_d.order, 4)
+
     # Private functions
     def test_private_get_group_filter_dict(self):
         foo = TestOrderedModel.objects.get(order=1)
