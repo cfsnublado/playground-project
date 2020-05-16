@@ -6,9 +6,9 @@ class UserManager(BaseUserManager):
 
     def create_user(self, username=None, email=None, password=None, **kwargs):
         if not username:
-            raise ValueError(_('validation_username_required'))
+            raise ValueError(_("validation_username_required"))
         if not email:
-            raise ValueError(_('validation_email_required'))
+            raise ValueError(_("validation_email_required"))
         user = self.model(
             username=username.lower(),
             email=email.lower(),
@@ -30,9 +30,9 @@ class UserManager(BaseUserManager):
 
     def create_inactive_incomplete_user(self, username=None, email=None, **kwargs):
         if not username:
-            raise ValueError(_('validation_username_required'))
+            raise ValueError(_("validation_username_required"))
         if not email:
-            raise ValueError(_('validation_email_required'))
+            raise ValueError(_("validation_email_required"))
         user = self.model(
             username=username,
             email=email.lower(),
@@ -47,4 +47,4 @@ class UserManager(BaseUserManager):
         return self.create_user(username=username, email=email, password=password, **kwargs)
 
     def get_queryset(self):
-        return super(UserManager, self).get_queryset().select_related('profile')
+        return super(UserManager, self).get_queryset().select_related("profile")

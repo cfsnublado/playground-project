@@ -1,7 +1,7 @@
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 
@@ -27,3 +27,10 @@ def foo_published_notification(
                     "foo_data": foo_serializer.data
                 }
             )
+
+
+@receiver(post_delete, sender=Foo)
+def update_order(
+    sender, instance=None, **kwargs
+):
+    pass
