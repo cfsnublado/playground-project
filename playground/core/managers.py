@@ -71,7 +71,7 @@ class OrderedModelManager(models.Manager):
                     obj.order = new_order
                     obj.save()
 
-    def close_gap(self, removed_obj):
+    def close_order_gap(self, removed_obj):
         """
         Closes the gap made by an ordered element after being deleted from db.
         """

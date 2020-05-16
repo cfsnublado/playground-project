@@ -30,7 +30,7 @@ def foo_published_notification(
 
 
 @receiver(post_delete, sender=Foo)
-def update_order(
+def update_order_on_delete(
     sender, instance=None, **kwargs
 ):
-    pass
+    Foo.objects.close_order_gap(instance)

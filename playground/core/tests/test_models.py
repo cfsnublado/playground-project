@@ -173,9 +173,9 @@ class OrderedModelTest(TestCase):
         self.assertEqual(self.foo_c.order, 3)
         self.assertEqual(self.foo_d.order, 4)
 
-    def test_close_gap(self):
+    def test_close_order_gap(self):
         self.foo_b.delete()
-        TestOrderedModel.objects.close_gap(self.foo_b)
+        TestOrderedModel.objects.close_order_gap(self.foo_b)
         self.foo_a.refresh_from_db()
         self.foo_c.refresh_from_db()
         self.foo_d.refresh_from_db()
@@ -185,7 +185,7 @@ class OrderedModelTest(TestCase):
         self.assertEqual(self.foo_d.order, 3)
 
         self.foo_a.delete()
-        TestOrderedModel.objects.close_gap(self.foo_a)
+        TestOrderedModel.objects.close_order_gap(self.foo_a)
         self.foo_c.refresh_from_db()
         self.foo_d.refresh_from_db()
 
@@ -193,17 +193,22 @@ class OrderedModelTest(TestCase):
         self.assertEqual(self.foo_d.order, 2)
 
         self.foo_d.delete()
-        TestOrderedModel.objects.close_gap(self.foo_d)
+        TestOrderedModel.objects.close_order_gap(self.foo_d)
         self.foo_c.refresh_from_db()
 
         self.assertEqual(self.foo_c.order, 1)
 
         self.foo_c.delete()
-        TestOrderedModel.objects.close_gap(self.foo_c)
+        TestOrderedModel.objects.close_order_gap(self.foo_c)
 
-    def test_close_gap_without_delete(self):
-        """ Orders are unchanged if element still exists in db"""
-        TestOrderedModel.objects.close_gap(self.foo_b)
+    def test_close_order_gap_no_delete(self):
+        """
+        Orders are unchanged if supposedly removed element
+        still exists in db
+
+        """
+
+        TestOrderedModel.objects.close_order_gap(self.foo_b)
         self.foo_a.refresh_from_db()
         self.foo_b.refresh_from_db()
         self.foo_c.refresh_from_db()
