@@ -7,7 +7,9 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from .managers import ParentManager, TranslationManager
+from .managers import (
+    ParentManager, TranslationManager
+)
 from .validation import validate_translation_languages
 
 # Note on naming conventions.
@@ -16,6 +18,13 @@ from .validation import validate_translation_languages
 
 
 class OrderedModel(models.Model):
+    """
+    A model that is ordered within a parent group model.
+
+    Make sure that inheriting model also has a manager that inherits from
+    OrderedModelManager (Change this later)
+    """
+
     # Reference to parent group container (model or model_id)
     group_field = "group_container"
 
